@@ -926,6 +926,10 @@
 </script>
 
 <script>
+    const IS_LOGGED_IN = @json(Auth::check());
+</script>
+
+<script>
         // Profile dropdown
         function toggleProfile() {
             const dropdown = document.getElementById('profile-dropdown');
@@ -993,18 +997,21 @@
 
         // Close modal
         function closeModal() {
+
             const overlay = document.getElementById('modal-overlay');
             const modal = document.getElementById('modal');
             const content = document.getElementById('modal-content');
 
+            if (!overlay || !modal || !content) return;
+
             overlay.classList.add('opacity-0', 'pointer-events-none');
+
             modal.classList.add('opacity-0', 'pointer-events-none');
+
             content.classList.remove('scale-100');
             content.classList.add('scale-95');
 
-            // Reset to register tab after close
             setTimeout(() => {
-                document.querySelector('.flex.mb-6').classList.remove('hidden');
                 switchTab('register');
             }, 300);
         }
@@ -1053,6 +1060,11 @@ const DEALS = [
 //   showToast(p.name.substring(0,28) + '... added (' + cart[id].qty + ' units)');
 // }
 async function addToCart(id) {
+
+    if (!IS_LOGGED_IN) {
+        openModal('login');
+        return;
+    }
 
   const p = PRODUCTS.find(x => x.id == id);
   let totalQty = 0;
@@ -1830,7 +1842,7 @@ function renderProducts() {
           <div class="product-desc">
             ${p.description ?? ''}
           </div>
-
+        ${IS_LOGGED_IN ? `
           <div class="product-meta">
 
             <div>
@@ -1848,6 +1860,7 @@ function renderProducts() {
             </span>
 
           </div>
+        `:``}  
 
           <div class="product-stock">
             <div class="stock-dot ${stockClass}"></div>

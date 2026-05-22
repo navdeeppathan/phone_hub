@@ -154,8 +154,8 @@
             <div>
 
                 <div class="text-sm uppercase tracking-[3px] text-[#e8c868] mb-3">
-                    Mama Perfumes <br>
-                    Wholesale Fragrances · Dubai
+                    Phone Hub <br>
+                    Wholesale Portal
                 </div>
 
                 <h1 class="font-display text-4xl font-bold mb-3">
